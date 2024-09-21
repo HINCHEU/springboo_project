@@ -8,46 +8,30 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HelloController {
     @GetMapping("/")
-    public String sayHello() {
+    public String sayHello(Model model) {
+        model.addAttribute("activeLink", "home");
         return "eshopper/home";
     }
+
     @GetMapping("/index1")
     public String home(Model model) {
         model.addAttribute("title", "Home | E-Shopper");
+        model.addAttribute("activeLink", "home");
         return "eshopper/home";
     }
 
-    @GetMapping("/hi")
-    public String hi() {
-        return "hi";  // This refers to the hi.html template
-    }
-    @GetMapping("/check_out")
-    public  String chekOut(){
-        return "eshopper/checkout";
-    }
-    @GetMapping("/cart")
-    public  String cart(){
-        return "eshopper/cart";
-    }
-    @GetMapping("/blog")
-    public  String blog(){
-        return "eshopper/blog";
-    }
     @GetMapping("/contactus")
-    public  String contact(){
+    public String contact(Model model) {
+        model.addAttribute("activeLink", "contact");
         return "eshopper/contact";
     }
-    @GetMapping("/login")
-    public  String login(){
-        return "eshopper/login";
-    }
-    @GetMapping("/productdetail")
-    public  String productdetail(){
-        return "eshopper/productdetail";
-    }
+
     @GetMapping("/shop")
-    public  String shop(){
+    public String shop(Model model) {
+        model.addAttribute("activeLink", "shop");
         return "eshopper/shop";
     }
 
+    // Other methods...
 }
+
