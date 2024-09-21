@@ -22,7 +22,7 @@ public class HelloController {
 
     @GetMapping("/contactus")
     public String contact(Model model) {
-        model.addAttribute("activeLink", "contact");
+        model.addAttribute("activeLink", "contactus");
         return "eshopper/contact";
     }
 
