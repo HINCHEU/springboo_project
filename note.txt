@@ -1,0 +1,3 @@
+
+#Put at the top of template in html header
+<html xmlns:th="http://www.thymeleaf.org">

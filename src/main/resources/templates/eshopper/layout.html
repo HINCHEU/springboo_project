@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{eshopper/layout}">
+<head>
+    <title th:text="${title}">Default Title</title>
+</head>
+<body>
+<header th:replace="eshopper/fragments/header :: header"></header>
+<main layout:fragment="content"></main>
+<footer th:replace="eshopper/fragments/footer :: footer"></footer>
+<script th:replace="eshopper/fragments/script"></script>
+</body>
+</html>
