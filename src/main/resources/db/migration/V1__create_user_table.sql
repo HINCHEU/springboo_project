@@ -1,0 +1,13 @@
+CREATE TABLE user (
+    id BIGINT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    role BIGINT,
+    status VARCHAR(50),
+    email_verified_at TIMESTAMP,
+    remember_token VARCHAR(100),
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

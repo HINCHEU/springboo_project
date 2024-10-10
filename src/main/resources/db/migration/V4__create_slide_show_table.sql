@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS slide_show (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    top_title VARCHAR(255) NOT NULL,
+    main_title VARCHAR(255) NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    url VARCHAR(255),
+    status BIGINT NOT NULL,
+    PRIMARY KEY (id)
+);
