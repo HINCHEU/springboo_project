@@ -40,7 +40,7 @@
 									<div class="text-center">
 										<img src="admin/img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form>
+									<form action="/api/users/signin" onsubmit="return handleSubmit();" method="POST">
 										<div class="mb-3">
 											<label class="form-label">Email</label>
 											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
@@ -49,8 +49,8 @@
 											<label class="form-label">Password</label>
 											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
 											<small>
-            <a href="index.html">Forgot password?</a>
-          </small>
+										<a href="index.html">Forgot password?</a>
+									  </small>
 										</div>
 										<div>
 											<label class="form-check">
@@ -61,9 +61,13 @@
           </label>
 										</div>
 										<div class="text-center mt-3">
-											<a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
+											<button type="submit" class="btn btn-lg btn-primary">Sign in</button>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
+										<div class="text-danger text-center mt-3">
+											<span th:text="${error}" style="display: none;" id="error-message"> </span>
+										</div>
+
 									</form>
 								</div>
 							</div>
@@ -76,6 +80,24 @@
 	</main>
 
 	<script src="admin/js/app.js"></script>
+	<script>
+		function handleSubmit() {
+			const errorMessage = document.getElementById('error-message');
+			if (errorMessage.innerText) {
+				alert(errorMessage.innerText); // Show an alert with the error message
+				return false; // Prevent form submission
+			}
+			return true; // Allow form submission
+		}
+
+		// Check for any error messages on page load
+		window.onload = function() {
+			const errorMessage = document.getElementById('error-message');
+			if (errorMessage.innerText) {
+				alert(errorMessage.innerText); // Show alert if there's an error
+			}
+		};
+	</script>
 
 </body>
 

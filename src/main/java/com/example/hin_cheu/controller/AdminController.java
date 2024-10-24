@@ -1,4 +1,4 @@
-package com.example.hin_cheu;
+package com.example.hin_cheu.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,10 @@ public class AdminController {
     public String profile() {
         return "admin/profile";  // This refers to the hi.html template
     }
-    @GetMapping("/sign_in")
-    public String sign_in() {
-        return "admin/sign_in";  // This refers to the hi.html template
-    }
+//    @GetMapping("/sign_in")
+//    public String sign_in() {
+//        return "admin/sign_in";  // This refers to the hi.html template
+//    }
     @GetMapping("/sign_up")
     public String sign_up() {
         return "admin/sign_up";  // This refers to the hi.html template
