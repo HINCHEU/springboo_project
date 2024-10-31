@@ -1,8 +1,8 @@
 CREATE TABLE user (
-    id BIGINT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(20) NULL,
     role BIGINT,
     status VARCHAR(50),
     email_verified_at TIMESTAMP,
