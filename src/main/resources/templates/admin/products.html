@@ -169,12 +169,183 @@
             </div>
         </nav>
         <main class="content">
+            <h1 class="h3 mb-3"> Prodcts</h1>
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="card-title mb-0 text-white">Add Product</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="productForm">
+                                    <div class="mb-3">
+                                        <label for="productName" class="form-label">Product Name</label>
+                                        <input type="text" class="form-control" id="productName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productCategory" class="form-label">Category</label>
+                                        <select class="form-select" id="productCategory" required>
+                                            <option value="">Select Category</option>
+                                            <option value="1">Category 1</option>
+                                            <option value="2">Category 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productPrice" class="form-label">Price</label>
+                                        <input type="number" class="form-control" id="productPrice" step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productDescription" class="form-label">Description</label>
+                                        <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productStock" class="form-label">Stock Quantity</label>
+                                        <input type="number" class="form-control" id="productStock" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productStatus" class="form-label">Status</label>
+                                        <select class="form-select" id="productStatus">
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Add Product</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0 text-white">Add Category</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="categoryForm">
+                                <div class="mb-3">
+                                    <label for="categoryName" class="form-label">Category Name</label>
+                                    <input type="text" class="form-control" id="categoryName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoryDescription" class="form-label">Description</label>
+                                    <textarea class="form-control" id="categoryDescription" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoryStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="categoryStatus">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Category</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Category Form -->
+
+            <!-- Product Form -->
+
         </main>
         <footer th:insert="admin/fragments/footer :: copy"></footer>
     </div>
 </div>
 <!--	<div th:replace="admin/fragments/scripts :: scriptContent"></div>-->
-<div th:replace="admin/fragments/scripts :: scriptContent"></div>
 
+<div th:replace="admin/fragments/scripts :: scriptContent"></div>
+<script>
+    document.getElementById("categoryForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const categoryData = {
+            name: document.getElementById("categoryName").value,
+            description: document.getElementById("categoryDescription").value,
+            status: document.getElementById("categoryStatus").value
+        };
+
+        fetch("/api/categories", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(categoryData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Category added:", data);
+                // You can add more actions here, like clearing the form or showing a success message
+                // Clear the form after successful submission
+                document.getElementById("categoryForm").reset();
+                // Optionally, display a success message
+                Swal.fire({
+                    icon: "success",
+                    title: "Category Added",
+                    text: "The category has been added successfully!",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            })
+            .catch(error => {
+                // Show error alert
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "There was an error adding the category. Please try again.",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            });
+    });
+
+    document.getElementById("productForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const productData = {
+            name: document.getElementById("productName").value,
+            categoryId: document.getElementById("productCategory").value,
+            price: document.getElementById("productPrice").value,
+            description: document.getElementById("productDescription").value,
+            stockQuantity: document.getElementById("productStock").value,
+            status: document.getElementById("productStatus").value
+        };
+
+        fetch("/api/products/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(productData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Product added successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    document.getElementById("productForm").reset();
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to add product. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+    });
+
+
+</script>
 </body>
 </html>
