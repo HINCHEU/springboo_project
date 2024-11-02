@@ -17,4 +17,5 @@ public class ProductController {
         productService.saveProduct(product);
         return ResponseEntity.ok("Product added successfully!");
     }
+
 }
