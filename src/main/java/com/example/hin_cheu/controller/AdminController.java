@@ -28,4 +28,8 @@ public class AdminController {
     public String product() {
         return "admin/products";
     }// This refers to the hi.html template
+    @GetMapping("/logout")
+    public String log_out() {
+        return "admin/sign_in";
+    }// This refers to the hi.html template
 }

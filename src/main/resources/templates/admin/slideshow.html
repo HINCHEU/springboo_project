@@ -260,7 +260,51 @@
 
 <div th:replace="admin/fragments/scripts :: scriptContent"></div>
 <script>
+    <script th:inline="javascript">
+        // Display success message
+        const success = /*[[${success}]]*/ null;
+        if (success) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: success,
+            timer: 3000,
+            showConfirmButton: false
+        });
+    }
 
+        // Display error message
+        const error = /*[[${error}]]*/ null;
+        if (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: error,
+            timer: 3000,
+            showConfirmButton: false
+        });
+    }
+
+        // Confirm delete
+        document.querySelectorAll('form[action*="/slideshow/delete/"]').forEach(form => {
+        form.onsubmit = function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        };
+    });
+</script>
 
 </script>
 </body>
